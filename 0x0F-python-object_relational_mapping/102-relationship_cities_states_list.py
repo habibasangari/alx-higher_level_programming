@@ -1,7 +1,8 @@
 #!/usr/bin/python3
 """
-Listing all City objects from the database hbtn_0e_101_usa
+All City objects from the database hbtn_0e_101_usa
 """
+
 import sys
 from relationship_state import Base, State
 from relationship_city import City
