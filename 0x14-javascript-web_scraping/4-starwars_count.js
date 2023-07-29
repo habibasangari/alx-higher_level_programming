@@ -1,20 +1,12 @@
 #!/usr/bin/node
-
-
 const request = require('request');
-const url = process.argv[2];
-
-
-request(url, (error, response, body) => {
-  if (error) { console.log(error); }
-  const jsonBody = JSON.parse(body);
-  let wedgeCount = 0;
-  for (const result of jsonBody.results) {
-    for (const charURL of result.characters) {
-      if (charURL.includes(18)) {
-        wedgeCount++;
-      }
-    }
+request(process.argv[2], function (error, response, body) {
+  if (!error) {
+    const results = JSON.parse(body).results;
+    console.log(results.reduce((count, movie) => {
+      return movie.characters.find((character) => character.endsWith('/18/'))
+        ? count + 1
+        : count;
+    }, 0));
   }
-  console.log(wedgeCount);
 });
